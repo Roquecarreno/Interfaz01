@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistema de Facturación - Supermercado XYZ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://virtualbackgrounds.site/wp-content/uploads/2021/02/produce-department-in-a-supermarket.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos para el encabezado, menú, logo, etc. */
+        #header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #menu {
+            display: flex;
+            padding: 0;
+        }
+
+        #menu a {
+            text-decoration: none;
+            color: #fff;
+            margin-right: 20px;
+        }
+
+        #menu a:hover {
+            color: #F1F808;
+        }
+
+        #logo {
+            text-align: center;
+        }
+
+        #logo img {
+            display: block;
+            max-width: 150px;
+            margin-top: 20px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        #store-name {
+            text-align: center;
+            font-family: "Gothic", sans-serif;
+            font-size: 48px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+          #store-name-selected {
+            background-color: #F90224;
+            color: #fff;
+        }
+
+        #options {
+            background-color: #4CAF50;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-radius: 10px;
+        }
+
+        #options a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 20px;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        #options a:hover {
+            color: #007bff;
+        }
+
+        /* Estilos para la sección de productos */
+        #product-container {
+            margin: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .product-item {
+            width: 150px;
+            height: 50px;
+            background-color: #fff;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            font-size: 14px;
+        }
+
+        .product-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Estilos para el carrito */
+        #cart {
+            position: fixed;
+            bottom: 60px;
+            left: 100px;
+            background-color: #fff;
+            border: 5px solid #4CAF50;
+            border-radius: 10px;
+            padding: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .cart-item:hover {
+            background-color: #f9f9f9;
+
+        }
+
+          #invoice {
+            margin: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #invoice table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #invoice th, #invoice td {
+            border: 10px solid #ddd;
+            padding: 10px;
+        }
+
+        #invoice th {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+
+        #cancel-print {
+            text-align: center;
+            margin-top: 20px;
+         }
+
+         #payment-details {
+            text-align: center;
+            margin-top: 150px;
+        }
+
+        #payment-details input[type="radio"] {
+            margin-right: 20px;
+        }
+
+        /* Cambiar el color del texto "Detalles de Pago" y las etiquetas de los métodos de pago a blanco */
+        #payment-details h3,
+        #payment-details label {
+            color: #FFF;
+        }
+        #payment-details{
+         background-color:  #008000;
+            color: #fff;
+        }
+        footer {
+            text-align: center;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="header">
+    <div id="menu">
+        <a href="#">Bienvenido Roque Julio</a>
+        <a id="date">Fecha: </a>
+        <a id="time">Hora: </a>
+        <a href="#">Ayuda</a>
+        <button id="btnSalir">Salir</button> <!-- Botón de salida -->
+    </div>
+</div>
+<div id="logo">
+    <img src="https://png.pngtree.com/png-vector/20191113/ourlarge/pngtree-leaf-vector-logo-png-image_1986033.jpg" alt="Logo">
+</div>
+
+<div id="store-name" style="margin-top: 0;">
+    <a id="store-name-selected">MERKA FRUVER RC</a>
+</div>
+
+<div id="options">
+    <a href="#">Inicio</a>
+    <a href="#">Ventas</a>
+    <a href="#">Inventario</a>
+    <a href="#">Clientes</a>
+    <a href="#">Reportes</a>
+    <a href="#">Administrador</a>
+    <a href="#">Factura de Compra</a>
+</div>
+<div id="product-container">
+    <!-- Recuadros para añadir productos -->
+    <div class="product-item" onclick="addToCart('Manzana', 1.000)">Manzana</div>
+    <div class="product-item" onclick="addToCart('Mandarina', 9.00)">Mandarina</div>
+    <div class="product-item" onclick="addToCart('Pera', 1.900)">Pera</div>
+    <div class="product-item" onclick="addToCart('Papaya', 4.900)">Papaya</div>
+    
+</div>
+
+<div id="cart">
+    <h3>Detalle de Compras</h3>
+    <div id="cart-items">
+        <!-- Los productos seleccionados se agregarán aquí -->
+    </div>
+    <div id="total-venta">Total: $0.00</div> <!-- Total de la venta -->
+</div>
+<div id="payment-details">
+ <h3>Detalles de Pago</h3>
+    <div>
+        <input type="radio" id="pagoEfectivo" name="formaPago" value="efectivo">
+        <label for="pagoEfectivo">Pago en Efectivo</label>
+    </div>
+    <div>
+        <input type="radio" id="pagoTarjeta" name="formaPago" value="tarjeta">
+        <label for="pagoTarjeta">Tarjeta de Débito/Crédito</label>
+    </div>
+    <div>
+        <input type="radio" id="pagoNequi" name="formaPago" value="nequi">
+        <label for="pagoNequi">Pago Nequi</label>
+    </div>
+
+    <div id="cancel-print">
+        <button>Cancelar</button>
+        <button>Imprimir</button>
+    </div>
+</div>
+<script>
+    // Variable global para almacenar el total de la venta
+    let totalVenta = 0;
+
+    // Función para agregar productos al carrito
+    function addToCart(producto, precio) {
+        const cartItems = document.getElementById("cart-items");
+        const cartItem = document.createElement("div");
+        cartItem.textContent = producto + " - $" + precio;
+        cartItem.classList.add("cart-item");
+        cartItems.appendChild(cartItem);
+
+        // Actualizar el total de la venta
+        totalVenta += precio;
+
+        // Mostrar el total de la venta
+        document.getElementById("total-venta").textContent = "Total: $" + totalVenta.toFixed(2);
+
+        // Agregar evento para eliminar el producto del carrito al hacer clic en él
+        cartItem.addEventListener("click", function() {
+            cartItems.removeChild(cartItem);
+            // Restar el precio del producto eliminado del total de la venta
+            totalVenta -= precio;
+            // Actualizar el total de la venta
+            document.getElementById("total-venta").textContent = "Total: $" + totalVenta.toFixed(2);
+        });
+    }
+
+    function updateTime() {
+        const now = new Date();
+        const dateElement = document.getElementById("date");
+        const timeElement = document.getElementById("time");
+
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        dateElement.textContent = "Fecha: " + now.toLocaleDateString("es-CO", options);
+        timeElement.textContent = "Hora: " + now.toLocaleTimeString("es-CO");
+    }
+
+    updateTime(); // Llamar a la función para mostrar la hora y fecha actual
+
+    // Actualizar la hora en tiempo real cada segundo
+    setInterval(updateTime, 1000);
+    
+    // Manejar el clic en el botón "Salir"
+    document.getElementById("btnSalir").addEventListener("click", function() {
+        // Redirigir al usuario al menú de inicio
+        window.location.href = "https://zajuna.sena.edu.co/"; // Reemplaza "ruta/a/menu_inicio.html" con la URL de tu menú de inicio
+    });
+</script>
+</body>
+</html>
